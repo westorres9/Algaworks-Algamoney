@@ -39,5 +39,5 @@ public class CategoryResource {
         return ResponseEntity.created(uri).body(dto);
     }
 
-    
+
 }
