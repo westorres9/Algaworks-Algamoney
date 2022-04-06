@@ -3,8 +3,11 @@ package com.algaworks.algamoney.services;
 import com.algaworks.algamoney.DTO.CategoryDTO;
 import com.algaworks.algamoney.entities.Category;
 import com.algaworks.algamoney.repository.CategoryRepository;
+import com.algaworks.algamoney.services.exceptions.DatabaseException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -48,6 +51,18 @@ public class CategoryService {
         }
         catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id not found " + id);
+        }
+    }
+
+    public void delete(Long id) {
+        try {
+            repository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Resource Not found " + id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Integrity violation");
         }
     }
 

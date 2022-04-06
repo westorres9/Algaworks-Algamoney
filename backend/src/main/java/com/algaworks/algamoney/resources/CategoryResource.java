@@ -20,13 +20,13 @@ public class CategoryResource {
     private CategoryService service;
 
     @GetMapping
-    public ResponseEntity<Page<CategoryDTO>> findAllPaged(Pageable pageable) {
+    public ResponseEntity<Page<?>> findAllPaged(Pageable pageable) {
         Page<CategoryDTO> page = service.findAll(pageable);
         return ResponseEntity.ok().body(page);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@PathVariable Long id) {
         CategoryDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
@@ -43,8 +43,15 @@ public class CategoryResource {
     public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
-
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id)  {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
 
 
 }
