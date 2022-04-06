@@ -20,4 +20,10 @@ public class CategoryService {
         Page<Category> list = repository.findAll(pageable);
         return list.map(x -> new CategoryDTO(x));
     }
+
+    @Transactional(readOnly = true)
+    public CategoryDTO findById(Long id){
+        Category entity = repository.getById(id);
+        return new CategoryDTO(entity);
+    }
 }
