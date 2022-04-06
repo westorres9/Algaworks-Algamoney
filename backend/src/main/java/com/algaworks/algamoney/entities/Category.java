@@ -1,5 +1,7 @@
 package com.algaworks.algamoney.entities;
 
+import com.sun.istack.NotNull;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
@@ -14,6 +16,7 @@ public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String name;
 
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
