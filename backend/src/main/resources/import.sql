@@ -1,5 +1,5 @@
-INSERT INTO tb_category (name) VALUES ('Lazer');
-INSERT INTO tb_category (name) VALUES ('Supermercado');
-INSERT INTO tb_category (name) VALUES ('Alimentação');
-INSERT INTO tb_category (name) VALUES ('Fármacia');
-INSERT INTO tb_category (name) VALUES ('Outros');
+INSERT INTO tb_category (name, created_At) VALUES ('Lazer', NOW());
+INSERT INTO tb_category (name, created_At) VALUES ('Supermercado', NOW());
+INSERT INTO tb_category (name, created_At) VALUES ('Alimentação', NOW());
+INSERT INTO tb_category (name, created_At) VALUES ('Fármacia', NOW());
+INSERT INTO tb_category (name, created_At) VALUES ('Outros', NOW());
