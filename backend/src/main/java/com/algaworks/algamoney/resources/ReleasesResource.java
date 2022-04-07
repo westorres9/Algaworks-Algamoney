@@ -1,5 +1,6 @@
 package com.algaworks.algamoney.resources;
 
+import com.algaworks.algamoney.DTO.PersonDTO;
 import com.algaworks.algamoney.DTO.ReleasesDTO;
 import com.algaworks.algamoney.services.ReleasesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,17 @@ public class ReleasesResource {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ReleasesDTO> update(@PathVariable Long id, @RequestBody ReleasesDTO dto) {
+        dto = service.update(id, dto);
+        return ResponseEntity.ok().body(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
