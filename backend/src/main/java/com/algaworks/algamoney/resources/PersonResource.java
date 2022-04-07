@@ -1,6 +1,7 @@
 package com.algaworks.algamoney.resources;
 
 import com.algaworks.algamoney.DTO.PersonDTO;
+import com.algaworks.algamoney.entities.Person;
 import com.algaworks.algamoney.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -37,4 +38,10 @@ public class PersonResource {
                 .buildAndExpand(dto.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
     }
-}
+
+    @PutMapping("/{id}")
+    public ResponseEntity<PersonDTO> update(@PathVariable Long id, @RequestBody PersonDTO dto) {
+        dto = service.update(id, dto);
+            return ResponseEntity.ok().body(dto);
+        }
+    }
