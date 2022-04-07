@@ -4,10 +4,21 @@ INSERT INTO tb_category (name, created_At) VALUES ('Alimentação', NOW());
 INSERT INTO tb_category (name, created_At) VALUES ('Fármacia', NOW());
 INSERT INTO tb_category (name, created_At) VALUES ('Outros', NOW());
 
-INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Wester Torres', true, 'Uberlandia', 'front', 'Morumbi', '271', 'Minas Gerais', 'Rua Arca', '38407-270');
-INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Dayane Rosa', true, 'Uberlandia', 'front', 'Morumbi', '271', 'Minas Gerais', 'Rua Arca', '38407-270');
-INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Ronaldo Santos', true, 'Uberlandia', 'front', 'Morumbi', '819', 'Minas Gerais', 'Rua Guapeva', '38407-318');
-INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Neuza Rosa', true, 'Uberlandia', 'front', 'Morumbi', '819', 'Minas Gerais', 'Rua Guapeva', '38407-318');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Wester Torres', true, 'Uberlandia', 'residencia', 'Morumbi', '271', 'Minas Gerais', 'Rua Arca', '38407-270');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Dayane Rosa', true, 'Uberlandia',  'residencia', 'Morumbi', '271', 'Minas Gerais', 'Rua Arca', '38407-270');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Ronaldo Santos', true, 'Uberlandia',  'residencia', 'Morumbi', '819', 'Minas Gerais', 'Rua Guapeva', '38407-318');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Neuza Rosa', true, 'Uberlandia',  'residencia', 'Morumbi', '819', 'Minas Gerais', 'Rua Guapeva', '38407-318');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Isabela Martins', true , 'Manaus','Apto 10','Centro','1366','Amazonas', 'Rua da Terra','99400-12');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Leonardo Oliveira', true , 'Uberlândia','Casa Fundo','Segismundo Pereira','199', 'Minas Gerais', 'Rua do Músico','38400-00');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Carlos Santana', true , 'Belo Horizonte','Casa 2', 'Centro','433', 'Minas Gerais', 'Rua da Manga', '31400-12');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Henrique Medeiros', true , 'Rio de Janeiro', 'Apto 201','Centro', '1120','Rio de Janeiro', 'Rua do Sapo', '12400-12');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Pedro Barbosa', true , 'Rio Grande do Sul', 'Casa fundo', 'Tubalina', '322', 'Rio Grande do Sul', 'Rua da Lagoa','77400-12');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Josué Mariano', true , 'Porto Alegre', 'residencia', 'Jardins', '321','Rio Grande do Sul','Av Rio Branco', '56400-12');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Ricardo Pereira', true , 'Salvador',  'Apto 302', 'Aparecida', '123','Bahia', 'Rua do Motorista','38400-12');
+INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Maria Rita', true , 'Ribeirão Preto', 'Apto 101', 'Colina', '110','São Paulo','Rua do Sabiá','11400-12');
+
+
+
 
 
 INSERT INTO tb_releases (description, due_date, payment_date, value, note, type, category_id, person_id) VALUES ('Salário mensal', '2017-06-10', null, 6500.00, 'Distribuição de lucros', 'INCOME', 1, 1);
