@@ -1,6 +1,7 @@
 package com.algaworks.algamoney.services;
 
 import com.algaworks.algamoney.DTO.PersonDTO;
+import com.algaworks.algamoney.entities.Address;
 import com.algaworks.algamoney.entities.Person;
 import com.algaworks.algamoney.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,19 @@ public class PersonService {
         return new PersonDTO(entity);
     }
 
-   
+    @Transactional
+    public PersonDTO insert(PersonDTO dto){
+        Person entity = new Person();
+        entity.setName(dto.getName());
+        entity.setActive(dto.isActive());
+        entity.setAddress(dto.getAddress());
+        entity = repository.save(entity);
+        return new PersonDTO(entity);
+
+
+    }
+
+
 
 
 
