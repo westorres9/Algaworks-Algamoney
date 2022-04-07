@@ -9,6 +9,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class ReleasesService {
 
@@ -20,4 +22,11 @@ public class ReleasesService {
         Page<Releases> list = repository.findAll(pageable);
         return list.map(x -> new ReleasesDTO(x));
     }
+
+    @Transactional(readOnly = true)
+    public ReleasesDTO findById(Long id) {
+        Releases entity = repository.getById(id);
+        return new ReleasesDTO(entity);
+    }
+
 }
