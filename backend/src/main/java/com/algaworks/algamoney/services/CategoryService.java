@@ -1,10 +1,8 @@
 package com.algaworks.algamoney.services;
 
-import com.algaworks.algamoney.DTO.CategoryDTO;
-import com.algaworks.algamoney.entities.Category;
-import com.algaworks.algamoney.repositories.CategoryRepository;
-import com.algaworks.algamoney.services.exceptions.DatabaseException;
-import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
+import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,8 +11,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
-import javax.validation.ConstraintViolationException;
+import com.algaworks.algamoney.DTO.CategoryDTO;
+import com.algaworks.algamoney.entities.Category;
+import com.algaworks.algamoney.repositories.CategoryRepository;
+import com.algaworks.algamoney.services.exceptions.DatabaseException;
+import com.algaworks.algamoney.services.exceptions.FieldNotValidException;
+import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class CategoryService {
@@ -65,7 +67,7 @@ public class CategoryService {
 	} catch (IllegalArgumentException e) {
 		throw new DatabaseException("The given id must not be null!");
 	} catch (ConstraintViolationException e) {
-		throw new DatabaseException(
+		throw new FieldNotValidException(
 				"the fields entered are not valid, please check the fields entered and try again");
 	}
     }
@@ -82,7 +84,7 @@ public class CategoryService {
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
-			throw new DatabaseException(
+			throw new FieldNotValidException(
 					"the fields entered are not valid, please check the fields entered and try again");
 		}
     }

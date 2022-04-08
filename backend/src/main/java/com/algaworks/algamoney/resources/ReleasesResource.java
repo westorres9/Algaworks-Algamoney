@@ -42,7 +42,7 @@ public class ReleasesResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReleasesDTO> update(@Valid @PathVariable Long id, @RequestBody ReleasesDTO dto) {
+    public ResponseEntity<ReleasesDTO> update(@Valid @PathVariable Long id, @Valid @RequestBody ReleasesDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

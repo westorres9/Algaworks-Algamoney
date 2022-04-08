@@ -16,6 +16,7 @@ import com.algaworks.algamoney.DTO.ReleasesDTO;
 import com.algaworks.algamoney.entities.Releases;
 import com.algaworks.algamoney.repositories.ReleasesRepository;
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
+import com.algaworks.algamoney.services.exceptions.FieldNotValidException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -70,7 +71,7 @@ public class ReleasesService {
              throw new DatabaseException("The given id must not be null!");
          }
     	catch (ConstraintViolationException e) {
-    		throw new DatabaseException("the fields entered are not valid, please check the fields entered and try again");
+    		throw new FieldNotValidException("the fields entered are not valid, please check the fields entered and try again");
     	}
 
     }
@@ -103,7 +104,7 @@ public class ReleasesService {
              throw new DatabaseException("The given id must not be null!");
          }
     	catch (ConstraintViolationException e) {
-    		throw new DatabaseException("the fields entered are not valid, please check the fields entered and try again");
+    		throw new FieldNotValidException("the fields entered are not valid, please check the fields entered and try again");
     	}
     }
 

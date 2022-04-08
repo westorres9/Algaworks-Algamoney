@@ -1,6 +1,7 @@
 package com.algaworks.algamoney.resources.exceptions;
 
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
+import com.algaworks.algamoney.services.exceptions.FieldNotValidException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -78,6 +79,18 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Database exception");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+    
+    @ExceptionHandler(FieldNotValidException.class)
+    public ResponseEntity<StandardError> validation(FieldNotValidException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.UNPROCESSABLE_ENTITY;
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Validation Exception");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);

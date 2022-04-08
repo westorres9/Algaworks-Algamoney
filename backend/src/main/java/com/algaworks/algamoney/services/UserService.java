@@ -20,6 +20,7 @@ import com.algaworks.algamoney.entities.User;
 import com.algaworks.algamoney.repositories.RoleRepository;
 import com.algaworks.algamoney.repositories.UserRepository;
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
+import com.algaworks.algamoney.services.exceptions.FieldNotValidException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 
 @Service
@@ -75,7 +76,7 @@ public class UserService {
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
-			throw new DatabaseException(
+			throw new FieldNotValidException (
 					"the fields entered are not valid, please check the fields entered and try again");
 		}
 	}
@@ -102,7 +103,7 @@ public class UserService {
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
-			throw new DatabaseException(
+			throw new FieldNotValidException(
 					"the fields entered are not valid, please check the fields entered and try again");
 		}
 	}
