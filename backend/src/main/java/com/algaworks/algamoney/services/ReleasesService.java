@@ -36,7 +36,7 @@ public class ReleasesService {
 
     @Transactional(readOnly = true)
     public ReleasesDTO findById(Long id) {
-        Releases entity = repository.getById(id);
+        Releases entity = repository.getOne(id);
         return new ReleasesDTO(entity);
     }
 
@@ -65,7 +65,7 @@ public class ReleasesService {
     @Transactional
     public ReleasesDTO update(Long id, ReleasesDTO dto) {
         try {
-            Releases entity = repository.getById(id);
+            Releases entity = repository.getOne(id);
             entity.setDescription(dto.getDescription());
             entity.setDueDate(dto.getDueDate());
             entity.setPaymentDate(dto.getPaymentDate());

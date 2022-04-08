@@ -30,7 +30,7 @@ public class PersonService {
 
     @Transactional(readOnly = true)
     public PersonDTO findById(Long id) {
-        Person entity = repository.getById(id);
+        Person entity = repository.getOne(id);
         return new PersonDTO(entity);
     }
 
@@ -47,7 +47,7 @@ public class PersonService {
     @Transactional
     public PersonDTO update(Long id, PersonDTO dto){
         try {
-            Person entity = repository.getById(id);
+            Person entity = repository.getOne(id);
             entity.setName(dto.getName());
             entity.setActive(dto.isActive());
             entity.setAddress(dto.getAddress());
