@@ -1,12 +1,16 @@
 package com.algaworks.algamoney.entities;
 
-import com.sun.istack.NotNull;
-
 import java.io.Serializable;
-import java.time.Instant;
 import java.util.Objects;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+
 
 @Entity
 @Table(name = "tb_category")
@@ -16,7 +20,8 @@ public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
+	@NotNull(message = "please enter a valid name of category")
 	private String name;
 	
 	public Category() {

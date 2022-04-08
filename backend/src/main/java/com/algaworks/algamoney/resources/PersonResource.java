@@ -2,6 +2,8 @@ package com.algaworks.algamoney.resources;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,13 +35,13 @@ public class PersonResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<PersonDTO> findById(@Valid @PathVariable Long id) {
         PersonDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<PersonDTO> insert(@RequestBody PersonDTO dto){
+    public ResponseEntity<PersonDTO> insert(@Valid @RequestBody PersonDTO dto){
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -47,7 +49,7 @@ public class PersonResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonDTO> update(@PathVariable Long id, @RequestBody PersonDTO dto) {
+    public ResponseEntity<PersonDTO> update(@Valid @PathVariable Long id, @RequestBody PersonDTO dto) {
         dto = service.update(id, dto);
             return ResponseEntity.ok().body(dto);
     }

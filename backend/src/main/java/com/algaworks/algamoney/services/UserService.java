@@ -1,6 +1,7 @@
 package com.algaworks.algamoney.services;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -23,108 +24,98 @@ import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserRepository repository;
-    
-    @Autowired
-    private RoleRepository roleRepository;
+	@Autowired
+	private UserRepository repository;
 
-    @Transactional(readOnly = true)
-    public Page<UserDTO> findAll(Pageable pageable){
-        Page<User> list = repository.findAll(pageable);
-        return list.map(x -> new UserDTO(x));
-    }
+	@Autowired
+	private RoleRepository roleRepository;
 
-    @Transactional(readOnly = true)
-    public UserDTO findById(Long id) {
-        User entity = repository.getOne(id);
-        return new UserDTO(entity);
-    }
+	@Transactional(readOnly = true)
+	public Page<UserDTO> findAll(Pageable pageable) {
+		Page<User> list = repository.findAll(pageable);
+		return list.map(x -> new UserDTO(x));
+	}
 
-    @Transactional
-    public UserDTO insert(UserInsertDTO dto){
-    	try {
-    		 User entity = new User();
-    	        entity.setName(dto.getName());
-    	        entity.setEmail(dto.getEmail());
-    	        entity.getRoles().clear();
-    	        for(RoleDTO roleDto : dto.getRoles()) {
-    	        	Role role = roleRepository.getOne(roleDto.getId());
-    	        	entity.getRoles().add(role);
-    	        }
-    	        entity.setPassword(passwordEncoder.encode(dto.getPassword()));
-    	        entity = repository.save(entity);
-    	        return new UserDTO(entity);
-    	}
-    	catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Id not found ");
-        } 
-        catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Resource not found Exception");
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Integrity violation");
-        }
-    	 catch (IllegalArgumentException e) {
-             throw new DatabaseException("The given id must not be null!");
-         }
-    	
-       
-    }
+	@Transactional(readOnly = true)
+	public UserDTO findById(Long id) {
+		try {
+			User entity = repository.getOne(id);
+			return new UserDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found ");
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		}
+	}
 
-    @Transactional
-    public UserDTO update(Long id, UserDTO dto){
-        try {
-            User entity = repository.getOne(id);
-            entity.setName(dto.getName());
-            entity.setEmail(dto.getEmail());
-            entity.getRoles().clear();
-            for(RoleDTO roleDto : dto.getRoles()) {
-            	Role role = roleRepository.getOne(roleDto.getId());
-            	entity.getRoles().add(role);
-            }
-            entity = repository.save(entity);
-            return new UserDTO(entity);
-        }
-        catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Id not found " + id);
-        } 
-        catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Resource not found Exception");
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Integrity violation");
-        }
-        catch (IllegalArgumentException e) {
-            throw new DatabaseException("The given id must not be null!");
-        }
-   	
-        
+	@Transactional
+	public UserDTO insert(UserInsertDTO dto) {
+		try {
+			User entity = new User();
+			entity.setName(dto.getName());
+			entity.setEmail(dto.getEmail());
+			entity.getRoles().clear();
+			for (RoleDTO roleDto : dto.getRoles()) {
+				Role role = roleRepository.getOne(roleDto.getId());
+				entity.getRoles().add(role);
+			}
+			entity.setPassword(passwordEncoder.encode(dto.getPassword()));
+			entity = repository.save(entity);
+			return new UserDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found ");
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		} catch (IllegalArgumentException e) {
+			throw new DatabaseException("The given id must not be null!");
+		} catch (ConstraintViolationException e) {
+			throw new DatabaseException(
+					"the fields entered are not valid, please check the fields entered and try again");
+		}
+	}
 
-    }
+	@Transactional
+	public UserDTO update(Long id, UserDTO dto) {
+		try {
+			User entity = repository.getOne(id);
+			entity.setName(dto.getName());
+			entity.setEmail(dto.getEmail());
+			entity.getRoles().clear();
+			for (RoleDTO roleDto : dto.getRoles()) {
+				Role role = roleRepository.getOne(roleDto.getId());
+				entity.getRoles().add(role);
+			}
+			entity = repository.save(entity);
+			return new UserDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found " + id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		} catch (IllegalArgumentException e) {
+			throw new DatabaseException("The given id must not be null!");
+		} catch (ConstraintViolationException e) {
+			throw new DatabaseException(
+					"the fields entered are not valid, please check the fields entered and try again");
+		}
+	}
 
-    public void delete(Long id){
-        try {
-            repository.deleteById(id);
-        }
-        catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Resource not found Exception");
-        }
-        catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Integrity violation");
-        }
-        catch (IllegalArgumentException e) {
-            throw new DatabaseException("The given id must not be null!");
-        }
-   	
-    }
-
-
-
-
-
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		} catch (IllegalArgumentException e) {
+			throw new DatabaseException("The given id must not be null!");
+		}
+	}
 }

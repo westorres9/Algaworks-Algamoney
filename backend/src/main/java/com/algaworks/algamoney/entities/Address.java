@@ -1,16 +1,24 @@
 package com.algaworks.algamoney.entities;
 
 import javax.persistence.Embeddable;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Address {
-
+	
+	@NotNull(message = "please enter a valid address")
     private String street;
     private String number;
     private String complement;
     private String district;
+    
+    @NotNull(message = "please enter a valid zip_code")
     private String zipCode;
+    
+    @NotNull(message = "please enter a valid city")
     private String city;
+    
+    @NotNull(message = "please enter a valid state")
     private String state;
 
     public Address() {

@@ -1,6 +1,8 @@
 package com.algaworks.algamoney.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
@@ -14,10 +16,15 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotEmpty(message = "Required field")
     private String name;
     
+    @NotEmpty(message = "Please enter a valid email")
     @Column(unique = true)
     private String email;
+    
+    @NotEmpty(message = "Required field")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

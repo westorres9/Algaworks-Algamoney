@@ -2,7 +2,8 @@ package com.algaworks.algamoney.resources;
 
 import java.net.URI;
 
-import com.algaworks.algamoney.DTO.UserInsertDTO;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.algaworks.algamoney.DTO.UserDTO;
+import com.algaworks.algamoney.DTO.UserInsertDTO;
 import com.algaworks.algamoney.services.UserService;
 
 @RestController
@@ -28,19 +30,19 @@ public class UserResource {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable){
+    public ResponseEntity<Page<UserDTO>> findAll(@Valid Pageable pageable){
         Page<UserDTO> page = service.findAll(pageable);
         return ResponseEntity.ok().body(page);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<UserDTO> findById(@Valid @PathVariable Long id) {
         UserDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> insert(@RequestBody UserInsertDTO dto) {
+    public ResponseEntity<UserDTO> insert(@Valid @RequestBody UserInsertDTO dto) {
         UserDTO newDto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/id")
                 .buildAndExpand(newDto.getId()).toUri();
@@ -48,7 +50,7 @@ public class UserResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO dto) {
+    public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id, @RequestBody UserDTO dto) {
         dto = service.update(id, dto);
             return ResponseEntity.ok().body(dto);
     }

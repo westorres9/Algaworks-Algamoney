@@ -13,6 +13,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/categories")
 public class CategoryResource {
@@ -21,19 +23,19 @@ public class CategoryResource {
     private CategoryService service;
 
     @GetMapping
-    public ResponseEntity<Page<?>> findAllPaged(Pageable pageable) {
+    public ResponseEntity<Page<?>> findAllPaged(@Valid Pageable pageable) {
         Page<CategoryDTO> page = service.findAll(pageable);
         return ResponseEntity.ok().body(page);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id) {
+    public ResponseEntity<?> findById(@Valid @PathVariable Long id) {
         CategoryDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDTO> insert(@RequestBody CategoryDTO dto) {
+    public ResponseEntity<CategoryDTO> insert(@Valid @RequestBody CategoryDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -41,7 +43,7 @@ public class CategoryResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryDTO> update(@PathVariable Long id, @RequestBody CategoryDTO dto) {
+    public ResponseEntity<CategoryDTO> update(@Valid @PathVariable Long id, @RequestBody CategoryDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }

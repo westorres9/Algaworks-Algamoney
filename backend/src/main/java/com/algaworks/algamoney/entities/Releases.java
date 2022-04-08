@@ -1,12 +1,25 @@
 package com.algaworks.algamoney.entities;
 
-import com.algaworks.algamoney.entities.enums.TypeOfReleases;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+
+import com.algaworks.algamoney.entities.enums.TypeOfReleases;
 
 @Entity
 @Table(name = "tb_releases")
@@ -16,13 +29,18 @@ public class Releases implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @NotNull(message = "please enter a description")
     private String description;
 
     @Column(name = "due_date")
     private LocalDate dueDate;
 
     @Column(name = "payment_date")
+    @PastOrPresent(message = "The date given cannot be in the future")
     private LocalDate paymentDate;
+    
+    @Positive(message = "value must be positive")
     private BigDecimal value;
     private String note;
 

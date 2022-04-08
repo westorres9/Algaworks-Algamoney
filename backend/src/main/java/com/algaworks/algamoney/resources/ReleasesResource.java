@@ -12,6 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/releases")
 public class ReleasesResource {
@@ -20,19 +22,19 @@ public class ReleasesResource {
     private ReleasesService service;
 
     @GetMapping
-    public ResponseEntity<Page<ReleasesDTO>> findAll(Pageable pageable) {
+    public ResponseEntity<Page<ReleasesDTO>> findAll(@Valid Pageable pageable) {
         Page<ReleasesDTO> page = service.findAll(pageable);
         return ResponseEntity.ok().body(page);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ReleasesDTO> findById(@PathVariable Long id) {
+    public ResponseEntity<ReleasesDTO> findById(@Valid @PathVariable Long id) {
         ReleasesDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<ReleasesDTO> insert(@RequestBody ReleasesDTO dto) {
+    public ResponseEntity<ReleasesDTO> insert(@Valid @RequestBody ReleasesDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -40,7 +42,7 @@ public class ReleasesResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReleasesDTO> update(@PathVariable Long id, @RequestBody ReleasesDTO dto) {
+    public ResponseEntity<ReleasesDTO> update(@Valid @PathVariable Long id, @RequestBody ReleasesDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok().body(dto);
     }
