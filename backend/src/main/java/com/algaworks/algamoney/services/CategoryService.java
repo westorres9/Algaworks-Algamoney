@@ -2,7 +2,7 @@ package com.algaworks.algamoney.services;
 
 import com.algaworks.algamoney.DTO.CategoryDTO;
 import com.algaworks.algamoney.entities.Category;
-import com.algaworks.algamoney.repository.CategoryRepository;
+import com.algaworks.algamoney.repositories.CategoryRepository;
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,10 @@
 package com.algaworks.algamoney.DTO;
 
+import java.io.Serializable;
+
 import com.algaworks.algamoney.entities.Category;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-public class CategoryDTO {
+public class CategoryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 

@@ -1,11 +1,7 @@
 package com.algaworks.algamoney.services;
 
-import com.algaworks.algamoney.DTO.PersonDTO;
-import com.algaworks.algamoney.entities.Address;
-import com.algaworks.algamoney.entities.Person;
-import com.algaworks.algamoney.repository.PersonRepository;
-import com.algaworks.algamoney.services.exceptions.DatabaseException;
-import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -14,7 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
+import com.algaworks.algamoney.DTO.PersonDTO;
+import com.algaworks.algamoney.entities.Person;
+import com.algaworks.algamoney.repositories.PersonRepository;
+import com.algaworks.algamoney.services.exceptions.DatabaseException;
+import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PersonService {

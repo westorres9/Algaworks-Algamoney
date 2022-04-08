@@ -1,4 +1,4 @@
-package com.algaworks.algamoney.repository;
+package com.algaworks.algamoney.repositories;
 
 import com.algaworks.algamoney.entities.Releases;
 import org.springframework.data.jpa.repository.JpaRepository;

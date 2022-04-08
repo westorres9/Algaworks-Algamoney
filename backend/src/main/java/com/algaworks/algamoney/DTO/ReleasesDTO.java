@@ -1,14 +1,16 @@
 package com.algaworks.algamoney.DTO;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+
 import com.algaworks.algamoney.entities.Category;
 import com.algaworks.algamoney.entities.Person;
 import com.algaworks.algamoney.entities.Releases;
 import com.algaworks.algamoney.entities.enums.TypeOfReleases;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
-public class ReleasesDTO {
+public class ReleasesDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private Long id;
     private String description;

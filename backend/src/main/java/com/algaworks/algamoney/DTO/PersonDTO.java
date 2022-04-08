@@ -1,9 +1,9 @@
 package com.algaworks.algamoney.DTO;
 
+import java.io.Serializable;
+
 import com.algaworks.algamoney.entities.Address;
 import com.algaworks.algamoney.entities.Person;
-
-import java.io.Serializable;
 
 public class PersonDTO implements Serializable {
     private static final long serialVersionUID = 1L;

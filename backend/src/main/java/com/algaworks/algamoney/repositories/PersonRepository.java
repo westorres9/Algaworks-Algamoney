@@ -1,4 +1,4 @@
-package com.algaworks.algamoney.repository;
+package com.algaworks.algamoney.repositories;
 
 import com.algaworks.algamoney.entities.Person;
 

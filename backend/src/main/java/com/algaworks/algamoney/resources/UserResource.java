@@ -16,30 +16,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.algaworks.algamoney.DTO.PersonDTO;
-import com.algaworks.algamoney.services.PersonService;
+import com.algaworks.algamoney.DTO.UserDTO;
+import com.algaworks.algamoney.services.UserService;
 
 @RestController
-@RequestMapping(value = "/persons")
-public class PersonResource {
+@RequestMapping(value = "/users")
+public class UserResource {
 
     @Autowired
-    private PersonService service;
+    private UserService service;
 
     @GetMapping
-    public ResponseEntity<Page<PersonDTO>> findAll(Pageable pageable){
-        Page<PersonDTO> page = service.findAll(pageable);
+    public ResponseEntity<Page<UserDTO>> findAll(Pageable pageable){
+        Page<UserDTO> page = service.findAll(pageable);
         return ResponseEntity.ok().body(page);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
-        PersonDTO dto = service.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
+        UserDTO dto = service.findById(id);
         return ResponseEntity.ok().body(dto);
     }
 
     @PostMapping
-    public ResponseEntity<PersonDTO> insert(@RequestBody PersonDTO dto){
+    public ResponseEntity<UserDTO> insert(@RequestBody UserDTO dto){
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -47,7 +47,7 @@ public class PersonResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonDTO> update(@PathVariable Long id, @RequestBody PersonDTO dto) {
+    public ResponseEntity<UserDTO> update(@PathVariable Long id, @RequestBody UserDTO dto) {
         dto = service.update(id, dto);
             return ResponseEntity.ok().body(dto);
     }
