@@ -16,8 +16,8 @@ import com.algaworks.algamoney.DTO.ReleasesDTO;
 import com.algaworks.algamoney.entities.Releases;
 import com.algaworks.algamoney.repositories.ReleasesRepository;
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
-import com.algaworks.algamoney.services.exceptions.FieldNotValidException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
+import com.algaworks.algamoney.services.exceptions.ValidationException;
 
 @Service
 public class ReleasesService {
@@ -69,11 +69,9 @@ public class ReleasesService {
         }
     	 catch (IllegalArgumentException e) {
              throw new DatabaseException("The given id must not be null!");
-         }
-    	catch (ConstraintViolationException e) {
-    		throw new FieldNotValidException("the fields entered are not valid, please check the fields entered and try again");
-    	}
-
+         } catch (ConstraintViolationException e) {
+ 			throw new ValidationException("Validation error");
+ 		}
     }
 
     @Transactional
@@ -102,10 +100,9 @@ public class ReleasesService {
         }
     	 catch (IllegalArgumentException e) {
              throw new DatabaseException("The given id must not be null!");
-         }
-    	catch (ConstraintViolationException e) {
-    		throw new FieldNotValidException("the fields entered are not valid, please check the fields entered and try again");
-    	}
+         } catch (ConstraintViolationException e) {
+ 			throw new ValidationException("Validation error");
+ 		}
     }
 
     public void delete(Long id) {

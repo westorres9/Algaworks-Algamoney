@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.algaworks.algamoney.DTO.RoleDTO;
 import com.algaworks.algamoney.DTO.UserDTO;
@@ -20,8 +21,8 @@ import com.algaworks.algamoney.entities.User;
 import com.algaworks.algamoney.repositories.RoleRepository;
 import com.algaworks.algamoney.repositories.UserRepository;
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
-import com.algaworks.algamoney.services.exceptions.FieldNotValidException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
+import com.algaworks.algamoney.services.exceptions.ValidationException;
 
 @Service
 public class UserService {
@@ -54,7 +55,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO insert(UserInsertDTO dto) {
+	public UserDTO insert(UserInsertDTO dto) throws MethodArgumentNotValidException {
 		try {
 			User entity = new User();
 			entity.setName(dto.getName());
@@ -75,9 +76,6 @@ public class UserService {
 			throw new DatabaseException("Integrity violation");
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
-		} catch (ConstraintViolationException e) {
-			throw new FieldNotValidException (
-					"the fields entered are not valid, please check the fields entered and try again");
 		}
 	}
 
@@ -103,8 +101,7 @@ public class UserService {
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
-			throw new FieldNotValidException(
-					"the fields entered are not valid, please check the fields entered and try again");
+			throw new ValidationException("Validation error");
 		}
 	}
 
@@ -117,6 +114,8 @@ public class UserService {
 			throw new DatabaseException("Integrity violation");
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
+		} catch (ConstraintViolationException e) {
+			throw new ValidationException("Validation error");
 		}
 	}
 }

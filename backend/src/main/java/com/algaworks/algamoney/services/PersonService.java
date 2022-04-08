@@ -15,8 +15,8 @@ import com.algaworks.algamoney.DTO.PersonDTO;
 import com.algaworks.algamoney.entities.Person;
 import com.algaworks.algamoney.repositories.PersonRepository;
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
-import com.algaworks.algamoney.services.exceptions.FieldNotValidException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
+import com.algaworks.algamoney.services.exceptions.ValidationException;
 
 @Service
 public class PersonService {
@@ -70,10 +70,8 @@ public class PersonService {
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
-			throw new FieldNotValidException(
-					"the fields entered are not valid, please check the fields entered and try again");
+			throw new ValidationException("Validation error");
 		}
-
 	}
 
 	public void delete(Long id) {
@@ -88,8 +86,7 @@ public class PersonService {
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
-			throw new FieldNotValidException(
-					"the fields entered are not valid, please check the fields entered and try again");
+			throw new ValidationException("Validation error");
 		}
 	}
 
