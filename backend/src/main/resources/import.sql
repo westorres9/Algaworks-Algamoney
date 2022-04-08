@@ -4,6 +4,17 @@ INSERT INTO tb_category (name) VALUES ('Alimentação');
 INSERT INTO tb_category (name) VALUES ('Fármacia');
 INSERT INTO tb_category (name) VALUES ('Outros');
 
+
+INSERT INTO tb_user (name, email, password) VALUES ('Alex Brown', 'alex@gmail.com', '123456');
+INSERT INTO tb_user (name, email, password) VALUES ('Maria Green', 'maria@gmail.com', '123456');
+
+INSERT INTO tb_role (authority) VALUES ('ROLE_OPERATOR');
+INSERT INTO tb_role (authority) VALUES ('ROLE_ADMIN');
+
+INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
+INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 2);
+
 INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Wester Torres', true, 'Uberlandia', 'residencia', 'Morumbi', '271', 'Minas Gerais', 'Rua Arca', '38407-270');
 INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Dayane Rosa', true, 'Uberlandia',  'residencia', 'Morumbi', '271', 'Minas Gerais', 'Rua Arca', '38407-270');
 INSERT INTO tb_person (name, active, city, complement, district, number, state, street, zip_code) VALUES ('Ronaldo Santos', true, 'Uberlandia',  'residencia', 'Morumbi', '819', 'Minas Gerais', 'Rua Guapeva', '38407-318');
