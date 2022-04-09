@@ -44,12 +44,24 @@ public class PersonService {
 
 	@Transactional
 	public PersonDTO insert(PersonDTO dto) {
-		Person entity = new Person();
-		entity.setName(dto.getName());
-		entity.setActive(dto.isActive());
-		entity.setAddress(dto.getAddress());
-		entity = repository.save(entity);
-		return new PersonDTO(entity);
+		try {
+			Person entity = new Person();
+			entity.setName(dto.getName());
+			entity.setActive(dto.isActive());
+			entity.setAddress(dto.getAddress());
+			entity = repository.save(entity);
+			return new PersonDTO(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found ");
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		} catch (IllegalArgumentException e) {
+			throw new DatabaseException("The given id must not be null!");
+		} catch (ConstraintViolationException e) {
+			throw new ValidationException("Validation error");
+		}
 	}
 
 	@Transactional
@@ -83,10 +95,6 @@ public class PersonService {
 			throw new ResourceNotFoundException("Resource not found Exception");
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
-		} catch (IllegalArgumentException e) {
-			throw new DatabaseException("The given id must not be null!");
-		} catch (ConstraintViolationException e) {
-			throw new ValidationException("Validation error");
 		}
 	}
 

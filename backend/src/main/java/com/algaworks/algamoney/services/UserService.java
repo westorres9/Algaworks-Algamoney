@@ -55,7 +55,7 @@ public class UserService {
 	}
 
 	@Transactional
-	public UserDTO insert(UserInsertDTO dto) throws MethodArgumentNotValidException {
+	public UserDTO insert(UserInsertDTO dto) {
 		try {
 			User entity = new User();
 			entity.setName(dto.getName());
@@ -76,6 +76,8 @@ public class UserService {
 			throw new DatabaseException("Integrity violation");
 		} catch (IllegalArgumentException e) {
 			throw new DatabaseException("The given id must not be null!");
+		} catch (ConstraintViolationException e) {
+			throw new ValidationException("Validation error");
 		}
 	}
 
@@ -112,10 +114,6 @@ public class UserService {
 			throw new ResourceNotFoundException("Resource not found Exception");
 		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException("Integrity violation");
-		} catch (IllegalArgumentException e) {
-			throw new DatabaseException("The given id must not be null!");
-		} catch (ConstraintViolationException e) {
-			throw new ValidationException("Validation error");
 		}
 	}
 }
