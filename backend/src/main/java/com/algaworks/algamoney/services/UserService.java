@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.algaworks.algamoney.DTO.RoleDTO;
 import com.algaworks.algamoney.DTO.UserDTO;
@@ -35,6 +34,16 @@ public class UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		}
+	}
 
 	@Transactional(readOnly = true)
 	public Page<UserDTO> findAll(Pageable pageable) {
@@ -104,16 +113,6 @@ public class UserService {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
 			throw new ValidationException("Validation error");
-		}
-	}
-
-	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Resource not found Exception");
-		} catch (DataIntegrityViolationException e) {
-			throw new DatabaseException("Integrity violation");
 		}
 	}
 }

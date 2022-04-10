@@ -10,12 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import com.algaworks.algamoney.DTO.CategoryDTO;
 import com.algaworks.algamoney.entities.Category;
 import com.algaworks.algamoney.repositories.CategoryRepository;
-import com.algaworks.algamoney.resources.exceptions.ValidationError;
 import com.algaworks.algamoney.services.exceptions.DatabaseException;
 import com.algaworks.algamoney.services.exceptions.ResourceNotFoundException;
 import com.algaworks.algamoney.services.exceptions.ValidationException;
@@ -25,6 +23,18 @@ public class CategoryService {
 
 	@Autowired
 	private CategoryRepository repository;
+
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found ");
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		}
+	}
 
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAll(Pageable pageable) {
@@ -78,18 +88,6 @@ public class CategoryService {
 			throw new DatabaseException("Integrity violation");
 		} catch (ConstraintViolationException e) {
 			throw new ValidationException("Validation error");
-		}
-	}
-
-	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id not found ");
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Resource not found Exception");
-		} catch (DataIntegrityViolationException e) {
-			throw new DatabaseException("Integrity violation");
 		}
 	}
 }

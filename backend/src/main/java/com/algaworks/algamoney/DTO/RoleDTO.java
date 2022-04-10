@@ -4,8 +4,8 @@ import com.algaworks.algamoney.entities.Role;
 
 public class RoleDTO {
 	
-	private Long id;
 	private String Authority;
+	private Long id;
 	
 	public RoleDTO() {
 	}
@@ -20,20 +20,20 @@ public class RoleDTO {
 		Authority = role.getAuthority();
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public String getAuthority() {
 		return Authority;
 	}
 
+	public Long getId() {
+		return id;
+	}
+
 	public void setAuthority(String authority) {
 		Authority = authority;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	

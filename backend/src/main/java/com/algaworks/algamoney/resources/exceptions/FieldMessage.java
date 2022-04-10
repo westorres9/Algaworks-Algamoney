@@ -21,12 +21,12 @@ public class FieldMessage implements Serializable {
 		return fieldName;
 	}
 
-	public void setFieldName(String fieldName) {
-		this.fieldName = fieldName;
-	}
-
 	public String getMessage() {
 		return message;
+	}
+
+	public void setFieldName(String fieldName) {
+		this.fieldName = fieldName;
 	}
 
 	public void setMessage(String message) {

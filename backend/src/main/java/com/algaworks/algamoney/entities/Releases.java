@@ -26,9 +26,9 @@ import com.algaworks.algamoney.entities.enums.TypeOfReleases;
 public class Releases implements Serializable {
     private static final long serialVersionUID= 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     
     @NotNull(message = "please enter a description")
     private String description;
@@ -36,25 +36,25 @@ public class Releases implements Serializable {
     @Column(name = "due_date")
     private LocalDate dueDate;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String note;
     @Column(name = "payment_date")
     @PastOrPresent(message = "The date given cannot be in the future")
     private LocalDate paymentDate;
-    
-    @Positive(message = "value must be positive")
-    private BigDecimal value;
-    private String note;
-
-    @Enumerated(EnumType.STRING)
-    private TypeOfReleases type;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
-
 
     @ManyToOne
     @JoinColumn(name = "person_id")
     private Person person;
+
+    @Enumerated(EnumType.STRING)
+    private TypeOfReleases type;
+
+
+    @Positive(message = "value must be positive")
+    private BigDecimal value;
 
     public Releases() {
     }
@@ -71,78 +71,6 @@ public class Releases implements Serializable {
         this.person = person;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDate getDueDate() {
-        return dueDate;
-    }
-
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public BigDecimal getValue() {
-        return value;
-    }
-
-    public void setValue(BigDecimal value) {
-        this.value = value;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public TypeOfReleases getType() {
-        return type;
-    }
-
-    public void setType(TypeOfReleases type) {
-        this.type = type;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -151,8 +79,80 @@ public class Releases implements Serializable {
         return Objects.equals(id, releases.id);
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public LocalDate getPaymentDate() {
+        return paymentDate;
+    }
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public TypeOfReleases getType() {
+        return type;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    public void setType(TypeOfReleases type) {
+        this.type = type;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 }

@@ -12,15 +12,15 @@ import com.algaworks.algamoney.entities.enums.TypeOfReleases;
 public class ReleasesDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    private Category category;
     private String description;
     private LocalDate dueDate;
-    private LocalDate paymentDate;
-    private BigDecimal value;
+    private Long id;
     private String note;
-    private TypeOfReleases type;
-    private Category category;
+    private LocalDate paymentDate;
     private Person person;
+    private TypeOfReleases type;
+    private BigDecimal value;
 
     public ReleasesDTO() {
     }
@@ -51,75 +51,75 @@ public class ReleasesDTO implements Serializable {
 
 
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public Category getCategory() {
+        return category;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public LocalDate getDueDate() {
         return dueDate;
     }
 
-    public void setDueDate(LocalDate dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public LocalDate getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(LocalDate paymentDate) {
-        this.paymentDate = paymentDate;
-    }
-
-    public BigDecimal getValue() {
-        return value;
-    }
-
-    public void setValue(BigDecimal value) {
-        this.value = value;
+    public Long getId() {
+        return id;
     }
 
     public String getNote() {
         return note;
     }
 
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    public TypeOfReleases getType() {
-        return type;
-    }
-
-    public void setType(TypeOfReleases type) {
-        this.type = type;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
+    public LocalDate getPaymentDate() {
+        return paymentDate;
     }
 
     public Person getPerson() {
         return person;
     }
 
+    public TypeOfReleases getType() {
+        return type;
+    }
+
+    public BigDecimal getValue() {
+        return value;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public void setPaymentDate(LocalDate paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public void setType(TypeOfReleases type) {
+        this.type = type;
+    }
+
+    public void setValue(BigDecimal value) {
+        this.value = value;
     }
 }

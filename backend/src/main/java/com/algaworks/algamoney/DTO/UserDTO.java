@@ -9,9 +9,9 @@ import com.algaworks.algamoney.entities.User;
 public class UserDTO implements Serializable{
 private static final long serialVersionUID = 1L;
 		
+	private String email;
 	private Long id;
 	private String name;
-	private String email;
 	
 	Set<RoleDTO> roles = new HashSet<>();
 
@@ -33,32 +33,32 @@ private static final long serialVersionUID = 1L;
 		entity.getRoles().forEach(role -> this.roles.add(new RoleDTO(role)));
 	}
 
-	public Long getId() {
-		return id;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public Long getId() {
+		return id;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
+	public Set<RoleDTO> getRoles() {
+		return roles;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public Set<RoleDTO> getRoles() {
-		return roles;
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	

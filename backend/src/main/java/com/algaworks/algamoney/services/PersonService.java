@@ -24,6 +24,18 @@ public class PersonService {
 	@Autowired
 	private PersonRepository repository;
 
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found ");
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
+		}
+	}
+
 	@Transactional(readOnly = true)
 	public Page<PersonDTO> findAll(Pageable pageable) {
 		Page<Person> list = repository.findAll(pageable);
@@ -83,18 +95,6 @@ public class PersonService {
 			throw new DatabaseException("The given id must not be null!");
 		} catch (ConstraintViolationException e) {
 			throw new ValidationException("Validation error");
-		}
-	}
-
-	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id not found ");
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Resource not found Exception");
-		} catch (DataIntegrityViolationException e) {
-			throw new DatabaseException("Integrity violation");
 		}
 	}
 

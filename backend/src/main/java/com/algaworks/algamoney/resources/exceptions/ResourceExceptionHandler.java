@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -21,41 +19,29 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
 
     public static class Error {
 
-        private String userMessage;
         private String developerMessage;
+        private String userMessage;
 
         public Error(String userMessage, String developerMessage) {
             this.userMessage = userMessage;
             this.developerMessage = developerMessage;
         }
 
-        public String getUserMessage() {
-            return userMessage;
-        }
-
-        public void setUserMessage(String userMessage) {
-            this.userMessage = userMessage;
-        }
-
         public String getDeveloperMessage() {
             return developerMessage;
+        }
+
+        public String getUserMessage() {
+            return userMessage;
         }
 
         public void setDeveloperMessage(String developerMessage) {
             this.developerMessage = developerMessage;
         }
-    }
 
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
-        HttpStatus status = HttpStatus.NOT_FOUND;
-        StandardError err = new StandardError();
-        err.setTimestamp(Instant.now());
-        err.setStatus(status.value());
-        err.setError("Resource not found");
-        err.setMessage(e.getMessage());
-        err.setPath(request.getRequestURI());
-        return ResponseEntity.status(status).body(err);
+        public void setUserMessage(String userMessage) {
+            this.userMessage = userMessage;
+        }
     }
 
     @ExceptionHandler(DatabaseException.class)
@@ -65,6 +51,18 @@ public class ResourceExceptionHandler extends ResponseEntityExceptionHandler {
         err.setTimestamp(Instant.now());
         err.setStatus(status.value());
         err.setError("Database exception");
+        err.setMessage(e.getMessage());
+        err.setPath(request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<StandardError> entityNotFound(ResourceNotFoundException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        StandardError err = new StandardError();
+        err.setTimestamp(Instant.now());
+        err.setStatus(status.value());
+        err.setError("Resource not found");
         err.setMessage(e.getMessage());
         err.setPath(request.getRequestURI());
         return ResponseEntity.status(status).body(err);

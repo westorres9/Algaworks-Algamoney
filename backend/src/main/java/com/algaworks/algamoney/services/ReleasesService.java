@@ -25,6 +25,16 @@ public class ReleasesService {
     @Autowired
     private ReleasesRepository repository;
 
+    public void delete(Long id) {
+        try {
+            repository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Resource not found Exception");
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Integrity violation");
+        }
+    }
+
     @Transactional(readOnly = true)
     public Page<ReleasesDTO> findAll(Pageable pageable){
         Page<Releases> list = repository.findAll(pageable);
@@ -103,15 +113,5 @@ public class ReleasesService {
          } catch (ConstraintViolationException e) {
  			throw new ValidationException("Validation error");
  		}
-    }
-
-    public void delete(Long id) {
-        try {
-            repository.deleteById(id);
-        } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException("Resource not found Exception");
-        } catch (DataIntegrityViolationException e) {
-            throw new DatabaseException("Integrity violation");
-        }
     }
 }

@@ -28,6 +28,12 @@ public class PersonResource {
     @Autowired
     private PersonService service;
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping
     public ResponseEntity<Page<PersonDTO>> findAll(Pageable pageable){
         Page<PersonDTO> page = service.findAll(pageable);
@@ -52,11 +58,5 @@ public class PersonResource {
     public ResponseEntity<PersonDTO> update(@Valid @PathVariable Long id,@Valid @RequestBody PersonDTO dto) {
         dto = service.update(id, dto);
             return ResponseEntity.ok().body(dto);
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
     }
 }

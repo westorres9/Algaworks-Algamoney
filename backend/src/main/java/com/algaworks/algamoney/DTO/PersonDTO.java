@@ -8,10 +8,10 @@ import com.algaworks.algamoney.entities.Person;
 public class PersonDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-    private String name;
     private boolean active;
     private Address address;
+    private Long id;
+    private String name;
 
     public PersonDTO(){
     }
@@ -30,20 +30,16 @@ public class PersonDTO implements Serializable {
         this.address = entity.getAddress();
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public boolean isActive() {
@@ -54,11 +50,15 @@ public class PersonDTO implements Serializable {
         this.active = active;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
