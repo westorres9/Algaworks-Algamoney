@@ -28,12 +28,6 @@ public class CategoryResource {
     @Autowired
     private CategoryService service;
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id)  {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping
     public ResponseEntity<Page<?>> findAllPaged(@Valid Pageable pageable) {
         Page<CategoryDTO> page = service.findAll(pageable);
@@ -60,7 +54,11 @@ public class CategoryResource {
         return ResponseEntity.ok().body(dto);
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id)  {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 
 
 }

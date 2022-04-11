@@ -29,12 +29,6 @@ public class UserResource {
     @Autowired
     private UserService service;
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        service.delete(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping
     public ResponseEntity<Page<UserDTO>> findAll(@Valid Pageable pageable){
         Page<UserDTO> page = service.findAll(pageable);
@@ -59,5 +53,11 @@ public class UserResource {
     public ResponseEntity<UserDTO> update(@Valid @PathVariable Long id,@Valid @RequestBody UserDTO dto) {
         dto = service.update(id, dto);
             return ResponseEntity.ok().body(dto);
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

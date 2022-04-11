@@ -24,18 +24,6 @@ public class CategoryService {
 	@Autowired
 	private CategoryRepository repository;
 
-	public void delete(Long id) {
-		try {
-			repository.deleteById(id);
-		} catch (EntityNotFoundException e) {
-			throw new ResourceNotFoundException("Id not found ");
-		} catch (EmptyResultDataAccessException e) {
-			throw new ResourceNotFoundException("Resource not found Exception");
-		} catch (DataIntegrityViolationException e) {
-			throw new DatabaseException("Integrity violation");
-		}
-	}
-
 	@Transactional(readOnly = true)
 	public Page<CategoryDTO> findAll(Pageable pageable) {
 		Page<Category> list = repository.findAll(pageable);
@@ -88,6 +76,18 @@ public class CategoryService {
 			throw new DatabaseException("Integrity violation");
 		} catch (ConstraintViolationException e) {
 			throw new ValidationException("Validation error");
+		}
+	}
+	
+	public void delete(Long id) {
+		try {
+			repository.deleteById(id);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException("Id not found ");
+		} catch (EmptyResultDataAccessException e) {
+			throw new ResourceNotFoundException("Resource not found Exception");
+		} catch (DataIntegrityViolationException e) {
+			throw new DatabaseException("Integrity violation");
 		}
 	}
 }
